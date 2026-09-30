@@ -1,0 +1,29 @@
+{
+  "image_quality": "fair",
+  "image_quality_notes": "Slightly blurry labels on the right-hand side.",
+  "services": [
+    {"id": "internet", "type": "internet", "label": "Users", "confidence": 0.98, "tier": "n/a", "properties": {}},
+    {"id": "web_alb", "type": "alb", "label": "Application Load Balancer", "confidence": 0.96, "tier": "public",
+     "properties": {"public": true}},
+    {"id": "app_server", "type": "ec2", "label": "App Server", "confidence": 0.93, "tier": "public",
+     "properties": {"public": false, "encrypted": null}},
+    {"id": "orders_db", "type": "rds", "label": "Orders DB", "confidence": 0.9, "tier": "public",
+     "properties": {"public": true, "encrypted": null, "multi_az": false, "backup_retention": 0, "engine": "mysql"}},
+    {"id": "assets", "type": "s3", "label": "Assets Bucket", "confidence": 0.95, "tier": "n/a",
+     "properties": {"encrypted": null}},
+    {"id": "mystery", "type": "other", "label": "?", "confidence": 0.3, "tier": "unknown", "properties": {}}
+  ],
+  "connections": [
+    {"from": "internet", "to": "web_alb", "label": "HTTPS"},
+    {"from": "web_alb", "to": "app_server"},
+    {"from": "app_server", "to": "orders_db"},
+    {"from": "app_server", "to": "assets"},
+    {"from": "mystery", "to": "ghost_component"}
+  ],
+  "network": {"vpc": true, "vpc_cidr": null, "availability_zones": 1,
+              "subnets": [{"id": "public_subnet", "tier": "public", "az": 1}]},
+  "security_findings": [{"severity": "critical", "component": "orders_db", "message": "The database appears to be drawn in the public subnet."}],
+  "warnings": [{"severity": "warning", "component": null, "message": "No security groups are drawn in the diagram."}],
+  "ambiguities": [{"component": "mystery", "message": "The icon at the bottom right is unreadable."}],
+  "recommendations": [{"severity": "recommendation", "component": null, "message": "Consider two Availability Zones for the load balancer."}]
+}

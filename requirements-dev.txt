@@ -1,0 +1,3 @@
+-r requirements.txt
+boto3>=1.35   # only needed to run against real AWS locally (Lambda runtime already includes it)
+cfn-lint>=1.20  # optional: lint the generated CloudFormation
