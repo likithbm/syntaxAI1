@@ -1,0 +1,46 @@
+import React from 'react';
+import { Card } from './ui.jsx';
+
+const sec = (ms) => `${(ms / 1000).toFixed(1)} sec`;
+
+/** Builds the displayed numbers from REAL backend timings (per-stage server-side ms) and browser-measured round trips. */
+export function summarizeTiming(t) {
+  const archVal = (t.validations || []).reduce((n, x) => n + (x.architecture_validation_ms || 0), 0)
+    + ((t.analyze && t.analyze.server.architecture_validation_ms) || 0);
+  const stages = [
+    ['Image Analysis', (t.analyze && (t.analyze.server.image_analysis_ms || 0) + (t.analyze.server.image_decode_ms || 0)) || 0, t.analyze && t.analyze.server.cache_hit],
+    ['Architecture Validation', archVal],
+    ['Code Generation', t.generate ? (t.generate.server.code_generation_ms || 0) + (t.generate.server.requirements_ms || 0) : 0],
+    ['Final Validation', t.verify ? t.verify.server.final_validation_ms || 0 : 0],
+  ];
+  const backend = stages.reduce((n, s) => n + s[1], 0);
+  const roundTrips = ((t.analyze && t.analyze.roundTripMs) || 0) + ((t.generate && t.generate.roundTripMs) || 0) + ((t.verify && t.verify.roundTripMs) || 0);
+  const slowest = stages.reduce((a, b) => (b[1] > a[1] ? b : a));
+  return { stages, backend, roundTrips, slowest };
+}
+
+export default function Timings({ timing, source }) {
+  const s = summarizeTiming(timing);
+  const within = s.roundTrips <= 10000;
+  return (
+    <Card title="Measured pipeline timing" subtitle="Real values: backend stage time is measured inside the API; round-trip time is measured in your browser. Time you spend reviewing is not counted.">
+      <table className="w-full text-sm" data-testid="timings">
+        <tbody>
+          {s.stages.map(([name, ms, cached]) => (
+            <tr key={name} className="border-b border-slate-100">
+              <td className="py-1.5">{name}{name === 'Image Analysis' && source === 'cache' ? <span className="ml-2 rounded bg-sky-100 px-1.5 py-0.5 text-[11px] text-sky-800">served from cache</span> : null}{name === 'Image Analysis' && source === 'fixture' ? <span className="ml-2 rounded bg-violet-100 px-1.5 py-0.5 text-[11px] text-violet-800">offline fixture, not a Bedrock call</span> : null}</td>
+              <td className="mono py-1.5 text-right">{sec(ms)}</td>
+            </tr>
+          ))}
+          <tr className="font-semibold"><td className="py-1.5">Total (backend processing)</td><td className="mono py-1.5 text-right">{sec(s.backend)}</td></tr>
+          <tr className="text-slate-600"><td className="py-1.5">Upload → final code, as seen by the browser (incl. network)</td><td className="mono py-1.5 text-right">{sec(s.roundTrips)}</td></tr>
+        </tbody>
+      </table>
+      <p className={`mt-3 rounded-lg px-3 py-2 text-sm ${within ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>
+        {within
+          ? `Within the 10 second target (${sec(s.roundTrips)}).`
+          : `Exceeded the 10 second target (${sec(s.roundTrips)}). Slowest stage: ${s.slowest[0]} (${sec(s.slowest[1])}).${s.slowest[0] === 'Image Analysis' ? ' The model call dominates: use a faster vision model or a smaller image.' : ''}`}
+      </p>
+    </Card>
+  );
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root { color-scheme: light; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+/* minimal syntax highlighting palette (see services/highlight.js) */
+.tok-k { color: #93c5fd; }   /* keys / keywords */
+.tok-s { color: #86efac; }   /* strings */
+.tok-n { color: #fca5a5; }   /* numbers / booleans */
+.tok-c { color: #94a3b8; font-style: italic; } /* comments */
+.tok-t { color: #f0abfc; }   /* types / tags / namespaces */
+
+@keyframes indeterminate { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+.indeterminate { width: 40%; animation: indeterminate 1.3s ease-in-out infinite; }
