@@ -1,83 +1,68 @@
-SyntaxAI
-AI-Powered Diagram-to-Code Generator
+# SyntaxAI
+## AI-Powered Diagram-to-Code Generator
 
-SyntaxAI is an AI-powered application that converts software diagrams such as flowcharts, UML diagrams, and architecture diagrams into executable code.
+SyntaxAI is an AI-powered application that converts software diagrams such as **flowcharts, UML diagrams, and architecture diagrams** into executable code.
 
-The system uses a vision-language AI model to understand the uploaded diagram, analyze its structure, and generate code based on the detected components and relationships.
+The system uses a **vision-language AI model** to understand uploaded diagrams, analyze their structure, and generate code based on the detected components and relationships.
 
-🚀 Features
+---
 
-Upload software diagrams and architecture diagrams
+## 🚀 Features
 
-Convert diagrams into executable code
+- Upload software and architecture diagrams
+- Convert diagrams into executable code
+- Support for flowcharts, UML diagrams, and architecture diagrams
+- AI-based diagram analysis
+- Code generation from diagram structure
+- Code refinement and improvement
+- Security-focused code validation
+- Code policy and rule checking
+- Automatic fixing of detected code issues
+- Backend API for processing requests
+- Frontend interface for interacting with the system
+- Local AI model support using Ollama
+- Automated backend testing support
 
-Support for flowcharts, UML diagrams, and architecture diagrams
+---
 
-AI-based diagram analysis
+## 🏗️ System Architecture
 
-Code generation from diagram structure
+SyntaxAI consists of three major components:
 
-Code refinement and improvement
-
-Security-focused code validation
-
-Code policy and rule checking
-
-Automatic fixing of detected code issues
-
-Backend API for processing requests
-
-Frontend interface for interacting with the system
-
-Local AI model support using Ollama
-
-Testing support for backend functionality
-
-🏗️ System Architecture
-
-The project consists of three major parts:
-
-1. Frontend
+### 1. Frontend
 
 The frontend provides the user interface where users can:
 
-Upload diagrams
+- Upload diagrams
+- Submit diagram-processing requests
+- View generated code
+- Refine generated code
+- Interact with the AI-powered code generation system
 
-Submit diagram-processing requests
-
-View generated code
-
-Refine generated code
-
-Interact with the AI-powered code generation system
-
-2. Backend
+### 2. Backend
 
 The backend handles:
 
-Diagram analysis
+- Diagram analysis
+- AI model communication
+- Code generation
+- Code validation
+- Code refinement
+- Security checks
+- API request processing
+- Data storage and processing
 
-AI model communication
+### 3. AI Model
 
-Code generation
-
-Code validation
-
-Code refinement
-
-Security checks
-
-API request processing
-
-Data storage and processing
-
-3. AI Model
-
-The system uses a local vision-language model through Ollama.
+The system uses a local vision-language model through **Ollama**.
 
 The model analyzes the uploaded diagram and extracts useful information that is then used for code generation.
 
-🔄 Workflow
+---
+
+## 🔄 Workflow
+
+```text
 User
   |
   v
@@ -109,40 +94,25 @@ Code Refinement
   |
   v
 Generated Code
-  |
-  v
-Frontend Display
+
 
 🛠️ Technologies Used
 Frontend
-
 HTML
-
 CSS
-
 JavaScript
-
 Frontend web technologies
-
 Backend
-
 Python
-
 API-based backend architecture
-
 Python validation and processing modules
-
-AI
-
+Artificial Intelligence
 Ollama
-
 Qwen2.5-VL vision-language model
-
 Testing
-
 Python testing framework
-
 Automated backend test cases
+
 
 📁 Project Structure
 SyntaxAI/
@@ -202,28 +172,22 @@ SyntaxAI/
 └── README.md
 
 ⚙️ Installation
-1. Clone the repository
+1. Clone the Repository
 git clone https://github.com/likithbm/syntaxAI1.git
 cd syntaxAI1
-
-2. Create a Python virtual environment
+2. Create a Python Virtual Environment
 python -m venv venv
-
-3. Activate the virtual environment
+3. Activate the Virtual Environment
 Windows
 venv\Scripts\activate
-
 Linux / macOS
 source venv/bin/activate
-
-4. Install dependencies
+4. Install Dependencies
 pip install -r requirements.txt
-
 
 For development and testing:
 
 pip install -r requirements-dev.txt
-
 🤖 AI Model Setup
 
 SyntaxAI can use a local vision-language model through Ollama.
@@ -234,7 +198,6 @@ Example:
 
 ollama pull qwen2.5-vl
 
-
 Start the Ollama service before running the application.
 
 🔐 Environment Configuration
@@ -242,7 +205,6 @@ Start the Ollama service before running the application.
 Create a .env file based on the provided example:
 
 .env.example
-
 
 Configure the required environment variables according to your local setup.
 
@@ -254,7 +216,6 @@ Start the local backend server using:
 
 python local_server.py
 
-
 The backend will start locally and provide the required API endpoints for the frontend.
 
 🌐 Running the Frontend
@@ -263,14 +224,13 @@ Navigate to the frontend directory:
 
 cd frontend/frontend
 
-
 Install the frontend dependencies if required and start the frontend development server using the project's configured command.
 
 The frontend communicates with the backend to submit diagrams and display generated code.
 
 🧠 Code Generation Pipeline
 
-The code generation process consists of multiple stages:
+The code generation process consists of multiple stages.
 
 Step 1: Diagram Input
 
@@ -281,17 +241,11 @@ Step 2: Diagram Analysis
 The uploaded diagram is analyzed to identify:
 
 Components
-
 Nodes
-
 Connections
-
 Relationships
-
 Architecture elements
-
 Workflow structure
-
 Step 3: AI Processing
 
 The extracted diagram information is processed using the vision-language model.
@@ -319,15 +273,10 @@ SyntaxAI includes security-oriented processing for generated code.
 The project contains:
 
 Code policy rules
-
 Validation modules
-
 Code security checks
-
 Automatic fixing support
-
 Input validation
-
 Secret and sensitive-data protection considerations
 
 Sensitive configuration values should always be stored in environment variables rather than directly inside source code.
@@ -340,61 +289,38 @@ Run the tests using:
 
 pytest
 
-
 The test suite includes testing for:
 
 API functionality
-
 Architecture processing
-
 Code generation
-
 Helper functionality
-
 Validation logic
-
 📌 Use Cases
 
 SyntaxAI can be useful for:
 
 Converting flowcharts into code
-
 Converting UML diagrams into implementation structures
-
 Converting architecture diagrams into infrastructure code
-
 Rapid prototyping
-
 Understanding software diagrams
-
 Automating repetitive code generation
-
 Assisting developers during system design
-
 🔮 Future Enhancements
 
 Possible future improvements include:
 
 Support for additional programming languages
-
 Support for more diagram formats
-
 Improved diagram recognition
-
-More AI models
-
+Support for additional AI models
 Cloud-based model support
-
 Real-time collaborative editing
-
 Improved code testing and verification
-
 Additional infrastructure-as-code formats
-
 Enhanced frontend visualization
-
 Deployment automation
-
 👥 Team
 
 SyntaxAI Team
@@ -406,3 +332,11 @@ This project was developed collaboratively as a team project.
 This project is intended for educational and project-development purposes.
 
 Add an appropriate open-source license if the project is later released under a specific license.
+
+
+**One important correction:** I kept the README based on the project information you provided. I did **not** add extra technologies/features that aren't supported by your supplied project details.
+
+This is good to use as the main `README.md` in your GitHub repository.
+  |
+  v
+Frontend Display
